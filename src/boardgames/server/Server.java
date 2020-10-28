@@ -30,6 +30,12 @@ public class Server {
 
 		}, gson::toJson);
 
+		after("/:game/players", (req, res) -> {
+			res.header("Access-Control-Allow-Origin", "*");
+            res.header("Access-Control-Allow-Methods", "GET");
+			res.body(res.body().toLowerCase());
+		});
+
 		get("/:game/result-table", "application/json", (req, res) -> {
 
 			GameDBO gameDBO = new GameDBO();
@@ -41,9 +47,13 @@ public class Server {
 
 		}, gson::toJson);
 
-		options("/:game/winner", (req, res) -> {
+		after("/:game/result-table", (req, res) -> {
+			res.header("Access-Control-Allow-Origin", "*");
+            res.header("Access-Control-Allow-Methods", "GET");
+			res.body(res.body().toLowerCase());
+		});
 
-			System.out.println("llegó el options");
+		options("/:game/winner", (req, res) -> {
 
 			String accessControlRequestHeaders = req.headers("Access-Control-Request-Headers");
 			if (accessControlRequestHeaders != null) {
@@ -72,18 +82,37 @@ public class Server {
 
 		}, gson::toJson);
 
-		after("/:game/players", (req, res) -> {
-			System.out.println("le pegó al after 1");
+		options("/:game/delete-result-table", (req, res) -> {
+
+			System.out.println("llegó el options");
+
+			String accessControlRequestHeaders = req.headers("Access-Control-Request-Headers");
+			if (accessControlRequestHeaders != null) {
+				res.header("Access-Control-Allow-Headers", accessControlRequestHeaders);
+			}
+
+			String accessControlRequestMethod = req.headers("Access-Control-Request-Method");
+			if (accessControlRequestMethod != null) {
+				res.header("Access-Control-Allow-Methods", accessControlRequestMethod);
+			}
+
 			res.header("Access-Control-Allow-Origin", "*");
-            res.header("Access-Control-Allow-Methods", "GET");
-			res.body(res.body().toLowerCase());
+
+			return "OK";
+
 		});
 
-		after("/:game/result-table", (req, res) -> {
-			System.out.println("le pegó al after 2");
-			res.header("Access-Control-Allow-Origin", "*");
-            res.header("Access-Control-Allow-Methods", "GET");
-			res.body(res.body().toLowerCase());
+		delete("/:game/delete-result-table", (req, res) -> {
+
+			System.out.println("llegó el delete");
+
+			GameDBO gameDBO = new GameDBO();
+			gameDBO.setId(Integer.valueOf(req.params("game")));
+
+			dbConnector.removeResultsForGame(gameDBO);
+
+			return "OK";
+
 		});
 
 	}
