@@ -115,4 +115,22 @@ public class DatabaseConnector {
 		return responseMap;
 	}
 
+	public void removeResultsForGame(GameDBO game) {
+		try {
+
+			Connection connection = this.connect();
+			PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM results WHERE (game = ?)");
+			preparedStatement.setInt(1, game.getId());
+			System.out.println(preparedStatement);
+			preparedStatement.execute();
+
+			preparedStatement.close();
+			connection.close();
+
+		} catch (Exception e) {
+			System.out.println("Delete failure.");
+			e.printStackTrace();
+		}
+	}
+
 }
