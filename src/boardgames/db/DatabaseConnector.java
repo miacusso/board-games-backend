@@ -11,12 +11,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class DatabaseConnector {
 
 	private Connection connect() throws Exception {
 		try {
+			// Development:
 			Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/board-games", "postgres", "postgres");
+			// Production:
+			//Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/id15411513_board_games", "id15411513_miacusso", "Maximiliano1acu$$o");
 			System.out.println("Connection success.");
 			return connection;
 		} catch (SQLException e) {
@@ -84,7 +88,7 @@ public class DatabaseConnector {
 		return players;
 	}
 
-	public Map<PlayerDBO, Integer> retrieveResultsCountForGame(GameDBO game) {
+	public Map<String, Integer> retrieveResultsCountForGame(GameDBO game) {
 
 		List<PlayerDBO> players = this.retrievePlayersForGame(game);
 		Map<PlayerDBO, Integer> responseMap = new HashMap<PlayerDBO, Integer>();
@@ -112,7 +116,7 @@ public class DatabaseConnector {
 			e.printStackTrace();
 		}
 
-		return responseMap;
+		return responseMap.entrySet().stream().collect(Collectors.toMap(e -> e.getKey().getName(), e -> e.getValue()));
 	}
 
 	public void removeResultsForGame(GameDBO game) {
