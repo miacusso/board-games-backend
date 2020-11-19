@@ -4,7 +4,6 @@ import static spark.Spark.*;
 
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import com.google.gson.Gson;
 
@@ -41,9 +40,9 @@ public class Server {
 			GameDBO gameDBO = new GameDBO();
 			gameDBO.setId(Integer.valueOf(req.params("game")));
 
-			Map<PlayerDBO, Integer> dbResponse = dbConnector.retrieveResultsCountForGame(gameDBO);
+			Map<String, Integer> dbResponse = dbConnector.retrieveResultsCountForGame(gameDBO);
 
-			return dbResponse.entrySet().stream().collect(Collectors.toMap(e -> e.getKey().getName(), e -> e.getValue()));
+			return dbResponse;
 
 		}, gson::toJson);
 
