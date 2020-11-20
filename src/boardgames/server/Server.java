@@ -81,29 +81,7 @@ public class Server {
 
 		}, gson::toJson);
 
-		options("/:game/delete-result-table", (req, res) -> {
-
-			System.out.println("llegó el options");
-
-			String accessControlRequestHeaders = req.headers("Access-Control-Request-Headers");
-			if (accessControlRequestHeaders != null) {
-				res.header("Access-Control-Allow-Headers", accessControlRequestHeaders);
-			}
-
-			String accessControlRequestMethod = req.headers("Access-Control-Request-Method");
-			if (accessControlRequestMethod != null) {
-				res.header("Access-Control-Allow-Methods", accessControlRequestMethod);
-			}
-
-			res.header("Access-Control-Allow-Origin", "*");
-
-			return "OK";
-
-		});
-
-		delete("/:game/delete-result-table", (req, res) -> {
-
-			System.out.println("llegó el delete");
+		get("/:game/delete-result-table", (req, res) -> {
 
 			GameDBO gameDBO = new GameDBO();
 			gameDBO.setId(Integer.valueOf(req.params("game")));
