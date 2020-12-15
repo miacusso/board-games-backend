@@ -1,4 +1,4 @@
-package boardgames.server;
+package com.miacusso.boardgames;
 
 import com.miacusso.boardgames.db.PlayerDBO;
 
