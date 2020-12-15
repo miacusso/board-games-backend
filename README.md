@@ -1,4 +1,4 @@
-# board-games-backend-java
+# board-games-backend-spark
 
 RESTFULL server written in Java that serves Game Board web app.
 This version uses `Spark` framework.

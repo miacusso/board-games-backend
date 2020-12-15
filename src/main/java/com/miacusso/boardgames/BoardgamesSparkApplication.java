@@ -1,4 +1,4 @@
-package boardgames.server;
+package com.miacusso.boardgames;
 
 import static spark.Spark.*;
 
@@ -10,7 +10,7 @@ import com.miacusso.boardgames.db.DatabaseConnector;
 import com.miacusso.boardgames.db.GameDBO;
 import com.miacusso.boardgames.db.PlayerDBO;
 
-public class Server {
+public class BoardgamesSparkApplication {
 
 	public static void main(String[] args) {
 
