@@ -31,6 +31,7 @@ public class BoardgamesSparkApplication {
 		after("/:game/players", (req, res) -> {
 			res.header("Access-Control-Allow-Origin", "*");
             res.header("Access-Control-Allow-Methods", "GET");
+            res.header("Content-Type", "application/json");
 			res.body(res.body().toLowerCase());
 		});
 
@@ -48,6 +49,7 @@ public class BoardgamesSparkApplication {
 		after("/:game/result-table", (req, res) -> {
 			res.header("Access-Control-Allow-Origin", "*");
             res.header("Access-Control-Allow-Methods", "GET");
+            res.header("Content-Type", "application/json");
 			res.body(res.body().toLowerCase());
 		});
 
@@ -78,7 +80,7 @@ public class BoardgamesSparkApplication {
 
 			return "OK";
 
-		}, gson::toJson);
+		});
 
 		get("/:game/delete-result-table", (req, res) -> {
 
