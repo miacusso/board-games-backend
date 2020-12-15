@@ -6,10 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.google.gson.Gson;
-
-import boardgames.db.DatabaseConnector;
-import boardgames.db.GameDBO;
-import boardgames.db.PlayerDBO;
+import com.miacusso.boardgames.db.DatabaseConnector;
+import com.miacusso.boardgames.db.GameDBO;
+import com.miacusso.boardgames.db.PlayerDBO;
 
 public class Server {
 
