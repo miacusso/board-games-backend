@@ -1,6 +1,6 @@
 package boardgames.server;
 
-import boardgames.db.PlayerDBO;
+import com.miacusso.boardgames.db.PlayerDBO;
 
 public class GameResultResponse {
 
