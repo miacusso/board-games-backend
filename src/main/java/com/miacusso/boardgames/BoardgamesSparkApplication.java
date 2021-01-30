@@ -78,6 +78,8 @@ public class BoardgamesSparkApplication {
 
 			dbConnector.insertGameResult(gameResult.getWinner().getId(), game);
 
+			res.header("Access-Control-Allow-Origin", "*");
+
 			return "OK";
 
 		});
